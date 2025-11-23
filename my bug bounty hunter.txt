@@ -1,0 +1,119 @@
+## subdomain Enumeration :- passive
+
+- subfinder
+
+subfinder -dL domains.txt -o subfinder.txt
+dir
+subfinder -d inholland.nl -o subfinder.txt
+
+
+- amass
+
+go install -v github.com/OWASP/Amass/v3/...@master
+
+amass enum -passive -norecursive  -df domains.txt -o amass.txt
+
+- assetfinder
+
+echo test.com | assetfinder --subs-only >> asset.txt;
+
+
+python github-subdomains.py -t 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 -d test.com | grep -v '@' | sort -u | grep "\.test.com" >> github-subs.txt
+
+
+curl -s https://crt.sh/?q=%25.test.com | grep test.com | grep TD | sed -e 's/<//g' | sed -e 's/>//g' | sed -e 's/TD//g' | sed -e 's/\///g' | sed -e 's/ //g' | sed -n '1!p' | sort -u >> crt.txt
+
+
+- crtfinder
+
+python crtfinder.py -u say.rocks
+
+- sublist3r
+
+sublist3r -d safesavings.com -o sublist3r.txt
+
+
+- site:*.ibm.com -site:www.ibm.com
+
+
+## Merging subdomains into one file :- all-subs.txt
+
+cat subfinder.txt amass.txt asset.txt github-subs.txt crt.txt sublist3r.txt | anew all-subs.txt
+
+
+- cat all-subs.txt | httpx -o live-subs.txt
+
+
+- #rm -r all-subs.txt
+
+
+### subdomain Enumeration :- active :-
+
+Bruteforcing #subdomains using a wordlist :-
+
+
+ffuf -u "https://FUZZ.kaggle.com" -w best-dns-wordlist.txt -mc 200,403,404,302,301
+
+
+gobuster dns -d test.com -t 50 -w /home/kali/Desktop/bug_bounty/wordliste/2m-subdomains.txt -o g.txt
+
+
+wordlists :- https://wordlists.assetnote.io/
+
+
+# Script for domains :-
+
+
+#!/bash/bin
+
+for url in $(cat domains.txt); do  #create domains.txt file contains your domains (many domains).
+
+subfinder -d $url -all >> subfinder.txt;
+
+amass enum -passive -norecursive -d $url >> amass.txt;
+
+echo $url | assetfinder --subs-only >> asset.txt;
+
+python github-subdomains.py -t your-github-token -d $url | grep -v '@' | sort -u | grep "\.$url" >> github-subs.txt
+
+ curl -s https://crt.sh/?q=%25.$url | grep $url | grep TD | sed -e 's/<//g' | sed -e 's/>//g' | sed -e 's/TD//g' | sed -e 's/\///g' | sed -e 's/ //g' | sed -n '1!p' | sort -u >> crt.txt
+
+done
+
+
+cat subfinder.txt amass.txt asset.txt github-subs.txt crt.txt | anew all-subs.txt
+
+ rm -r subfinder.txt amass.txt asset.txt crt.txt
+
+ cat all-subs.txt | httpx -o live-subs.txt
+
+ #rm -r all-subs.txt
+
+
+# Result all-subs.txt and live-subs.txt and github-subs.txt
+
+
+---------------------------------------------------------------------------------------------------
+
+
+## Subdomain Takeover :-
+
+
+1- Nuclei :-
+
+
+- nuclei -t /root/nuclei-templates/http/takeovers/ -l live-subs.txt
+
+
+2- Subzy :-  https://github.com/LukaSikic/subzy
+
+
+- subzy run --targets live-subs.txt
+
+- subzy run --target test.google.com
+
+- subzy run --target test.google.com,https://test.yahoo.com
+
+------------------------------------------------------------------------------------
+
+
