@@ -18,7 +18,7 @@ amass enum -passive -norecursive  -df domains.txt -o amass.txt
 echo test.com | assetfinder --subs-only >> asset.txt;
 
 
-python github-subdomains.py -t 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 -d test.com | grep -v '@' | sort -u | grep "\.test.com" >> github-subs.txt
+python github-subdomains.py -t your-github-token -d test.com | grep -v '@' | sort -u | grep "\.test.com" >> github-subs.txt
 
 
 curl -s https://crt.sh/?q=%25.test.com | grep test.com | grep TD | sed -e 's/<//g' | sed -e 's/>//g' | sed -e 's/TD//g' | sed -e 's/\///g' | sed -e 's/ //g' | sed -n '1!p' | sort -u >> crt.txt
@@ -617,4 +617,5 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
