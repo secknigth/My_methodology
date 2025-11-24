@@ -366,7 +366,8 @@ ________________________________________________________________________________
 
 - cat indrive.txt | kxss  ( looking for reflected :-  "<> )
 
-
+ - go install github.com/tomnomnom/qsreplace@latest
+ 
 cat output/t.txt | egrep -iv ".(jpg|jpeg|js|css|gif|tif|tiff|png|woff|woff2|ico|pdf|svg|txt)" | qsreplace '"><()'| tee combinedfuzz.json && cat combinedfuzz.json | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "\"><()" && echo -e "$host \033[91m Vullnerable \e[0m \n" || echo -e "$host  \033[92m Not Vulnerable \e[0m \n"; done | tee XSS.txt
 
 - test all urls:-
@@ -617,5 +618,6 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
 
