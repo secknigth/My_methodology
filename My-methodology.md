@@ -106,7 +106,7 @@ cat subfinder.txt amass.txt asset.txt github-subs.txt crt.txt | anew all-subs.tx
 1- Nuclei :-
 
 
-- nuclei -t /root/nuclei-templates/http/takeovers/ -l live-subs.txt
+- nuclei -t ~/.local/nuclei-templates/http/takeovers/ -l live-subs.txt
 
 
 2- Subzy :-  https://github.com/LukaSikic/subzy
@@ -218,7 +218,7 @@ install jscracker:- go install github.com/Ractiurd/jscracker@latest
 
 1- cat js-files.txt | jscracker | tee jscracker-result.txt
 
-2- nuclei -l js-files.txt -t /root/nuclei-templates/http/exposures/ | tee nuclei-result.txt
+2- nuclei -l js-files.txt -t ~/.local/nuclei-templates/http/exposures/ | tee nuclei-result.txt
 
 3- JSS-Scanner :-  python3 JSScanner.py 
 
@@ -601,11 +601,11 @@ Scanning target domain with community-curated nuclei templates :-
 
 - nuclei -u https://example.com
 
-- nuclei -list urls.txt -t ~/nuclei-templates/http/fuzzing
+- nuclei -list urls.txt -t ~/.local/nuclei-templates/http/fuzzing/
 
-- nuclei -list live-subs.txt -t ~/nuclei-templates/headless/vulnerabilities -t ~/nuclei-templates/code/cves -t ~/nuclei-templates/network/exposures -t ~/nuclei-templates/dast/vulnerabilities/sqli
+- nuclei -list live-subs.txt -t ~/.local/nuclei-templates/headless/vulnerabilities/ -t ~/.local/nuclei-templates/code/cves/ -t ~/.local/nuclei-templates/network/exposures/ -t ~/.local/nuclei-templates/dast/vulnerabilities/sqli/
 
-- nuclei -u https://example.com -w ~/nuclei-templates/workflows#
+- nuclei -u https://example.com -w ~/.local/nuclei-templates/workflows/
 __________________________________________________________________________________________________
 
 
@@ -618,6 +618,7 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
 
 
