@@ -218,24 +218,31 @@ ________________________________________________________________________________
 
 install katana :-  go install github.com/projectdiscovery/katana/cmd/katana@latest
 
-1- katana -u https://www.example.com | grep ".js$" | httpx -mc 200 | sort -u | tee js-files.txt
+1- katana -u example.com -d 5 -jc | grep "\.js$" | tee js-files.txt
 
-2- echo example.com | gau | grep ".js$" | httpx -mc 200 | sort -u | tee js-files.txt -a
+2- echo example.com | gau | grep "\.js$" | anew js-files.txt
 
-3- cat waymore.txt | grep ".js$" | httpx -mc 200 | sort -u | tee js-files.txt -a
+3- cat waymore.txt | grep ".js$" | anew js-files.txt -a
 
+4- cat js-files.txt | uro | sort -u | httpx-toolkit -mc 200 -o  live-js.txt
 
 --- Scanning :-
 
 install jscracker:- go install github.com/Ractiurd/jscracker@latest
 
-1- cat js-files.txt | jscracker | tee jscracker-result.txt
+1- cat live-js.txt | jsleak -s -l -k  
 
-2- nuclei -l js-files.txt -t ~/.local/nuclei-templates/http/exposures/ | tee nuclei-result.txt
+2- cat live-js.txt | jscracker | tee jscracker-result.txt
 
-3- JSS-Scanner :-  python3 JSScanner.py 
+3- nuclei -l live-js.txtt -t ~/.local/nuclei-templates/http/exposures/ | tee nuclei-result.txt
 
-4- Pinkerton :- python3 main.py -u https://example.com | tee pinkerton-result.txt
+    - https://github.com/schooldropout1337/lazyegg.git
+ 
+4- cat live-js.txt |xargs -I{} bash -c 'echo -e "\ntarget : {}\n" && python lazysgg.py "{}" --js_urls --domains --ips --leaked_creds --local_storage'
+
+5- JSS-Scanner :-  python3 JSScanner.py 
+
+6- Pinkerton :- python3 main.py -u https://example.com | tee pinkerton-result.txt
 
 
 
@@ -631,6 +638,7 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
 
 
