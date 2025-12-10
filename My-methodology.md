@@ -97,6 +97,19 @@ cat subfinder.txt amass.txt asset.txt github-subs.txt crt.txt | anew all-subs.tx
 # Result all-subs.txt and live-subs.txt and github-subs.txt
 
 
+# RSC CVE-2025-55182
+
+## https://cloud.projectdiscovery.io/library/CVE-2025-55182
+
+2- search in shodan = http.component:"Next.js"200
+
+3- seaech in fofa = app="NEXT.JS"||app="React.js"
+
+4- cat domains.txt | unclein -t ~/.local/unclein-templates/http/cves/2025/CVE-2025-55182.yaml
+
+5 install extensions =
+
+git clone https://github.com/mrknow001/RSC_Detector.git cd RSC_Detector
 ---------------------------------------------------------------------------------------------------
 
 
@@ -618,6 +631,7 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
 
 
