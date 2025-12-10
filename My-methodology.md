@@ -189,7 +189,7 @@ cat p.txt | uro > params.txt
 
 ################################
 
-cat f.txt | grep ".js$" | httpx -mc 200 | sort -u | tee js-files.txt
+cat f.txt | grep ".js$" | httpx -mc 200 | sort -u | tee live-js.txt
 
 rm -r wayback.txt gau.txt results/*.txt
 rm -r urls.txt
@@ -197,7 +197,7 @@ rm -r p.txt
 rm -r f.txt
 
 
-# Result :- params.txt and js-files.txt and github-urls.txt
+# Result :- params.txt and live-js.txt and github-urls.txt
 
 
 
@@ -213,6 +213,10 @@ ________________________________________________________________________________
 
 
 #### JS Hunting :-
+
+## extension
+
+endPointer
 
 --- Collecting :-
 
@@ -638,6 +642,7 @@ Open Redirection OneLiner :-
 - httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
+
 
 
 
